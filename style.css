@@ -87,6 +87,11 @@ body {
   color: #163300;
 }
 
+.section img {
+  display: flex;
+  justify-content: center;
+}
+
 /* GRID CARACTÉRISTIQUES */
 
 .grid {
