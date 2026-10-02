@@ -87,10 +87,7 @@ body {
   color: #163300;
 }
 
-.section img {
-  display: flex;
-  justify-content: center;
-}
+
 
 /* GRID CARACTÉRISTIQUES */
 
@@ -136,8 +133,10 @@ body {
 .dpe-img {
   width: 100%;
   max-width: 500px;
-  display: block;
-  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px; 
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
