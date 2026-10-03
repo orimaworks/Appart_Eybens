@@ -97,6 +97,12 @@
 </section>
 
 
+<dialog id="imageModal">
+  <button class="close-modal" aria-label="Fermer">✕</button>
+  <img id="modalImage" src="" alt="">
+</dialog>
+	
+
   <section id="localisation" class="section">
   <h2>📍 Localisation</h2>
 
@@ -294,6 +300,39 @@ topButton.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
+
+/**
+ * ============================================
+ * MODULE: Affichage photos en modale
+ * ============================================
+ */
+
+
+const images = document.querySelectorAll(".carousel img");
+const modal = document.querySelector("#imageModal");
+const modalImage = document.querySelector("#modalImage");
+const closeButton = document.querySelector(".close-modal");
+
+images.forEach(image => {
+  image.addEventListener("click", () => {
+    modalImage.src = image.src;
+    modalImage.alt = image.alt;
+
+    modal.showModal();
+  });
+});
+
+closeButton.addEventListener("click", () => {
+  modal.close();
+});
+
+modal.addEventListener("click", event => {
+  if (event.target === modal) {
+    modal.close();
+  }
+});
+
+	
 </script>
 
 	
