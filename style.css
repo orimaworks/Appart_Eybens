@@ -122,10 +122,13 @@ body {
   object-fit: cover;
   scroll-snap-align: start;
   transition: transform 0.3s ease;
+  cursor: zoom-in;  
+    
 }
 
 .carousel img:hover {
   transform: scale(1.05);
+  cursor:  
 }
 
 
