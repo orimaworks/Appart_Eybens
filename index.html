@@ -36,6 +36,28 @@
   </div>
 </header>
 
+    <!-- Fenêtre modale d'information -->
+<dialog id="info-dialog" aria-labelledby="info-title" aria-describedby="info-message">
+
+    <div class="dialog-content">
+        <h2 id="info-title">ℹ️ Information </h2>
+        <h3>✅ Offre acceptée <h3>
+        <p id="info-message">
+        Une offre vient d'être transmise au propriétaire, et a été acceptée. Vous pouvez toujours consulter les photos et les informations associées au bien, mais les visites sont momentanément suspendues.
+        En cas de désistement de la part des acquéreurs, ce message disparaîtra, et l'annonce sera à nouveau publiée sur LeBonCoin. Restez connecté(e) ! <br>
+        Merci pour l'intérêt que vous portez à cet appartement <br>🙏.
+        </p>
+
+        <p id="dialog-countdown" class="dialog-countdown" aria-live="polite">
+            Veuillez prendre connaissance du message…
+        </p>
+        <button id="dialog-ok" type="button" disabled>
+            OK (8)
+        </button>
+    </div>
+</dialog>
+
+
 <nav>
   <a href="#caracteristiques">Caractéristiques</a>
   <a href="#photos">Photos</a>
@@ -47,6 +69,8 @@
 </nav>
 	
 <section class="section">
+
+
   <h2>🏘️ Présentation</h2>
   <p>
     Idéal pour habitation ou investissement locatif. Appartement T3 traversant, d'une surface de 52m², situé au 1er et dernier étage d’une petite copropriété de 6 appartements seulement, dans un secteur calme & proche des commerces.
@@ -260,7 +284,6 @@ www.georisques.gouv.fr
 	<button id="topButton" aria-label="retour en haut de la page" title="Retour en haut">
 		<i aria-hidden="true" class="fa-solid fa-angles-up"></i>
 	</button>
-
 	
 <footer>
   <p>Annonce non contractuelle – informations données à titre indicatif <br>
@@ -335,6 +358,97 @@ modal.addEventListener("click", event => {
 	
 </script>
 
+<script> 
+/* =========================================================
+   OUVERTURE DU POP-UP D'INFORMATION
+   ========================================================= */
+
+// Récupération des éléments HTML
+const infoDialog = document.getElementById("info-dialog");
+const dialogOk = document.getElementById("dialog-ok");
+const dialogCountdown = document.getElementById("dialog-countdown");
+
+// Durée pendant laquelle le bouton reste inaccessible
+const delaySeconds = 8;
+
+
+/* ---------------------------------------------------------
+   OUVERTURE DE LA FENÊTRE
+   --------------------------------------------------------- */
+
+function showInfoDialog() {
+
+    // Évite d'ouvrir deux fois la même fenêtre
+    if (infoDialog.open) return;
+
+    // Ouvre le dialogue en mode modal :
+    // le reste de la page devient inaccessible à l'interaction.
+    infoDialog.showModal();
+
+    // Désactive le bouton au départ
+    dialogOk.disabled = true;
+
+    // Initialise le compte à rebours
+    let remaining = delaySeconds;
+
+    dialogOk.textContent = `Valider (${remaining})`;
+    dialogCountdown.textContent =
+        "Veuillez prendre connaissance du message…";
+
+    // Actualise le compteur chaque seconde
+    const countdownInterval = setInterval(() => {
+
+        remaining--;
+
+        if (remaining > 0) {
+
+            dialogOk.textContent =
+                `Valider (${remaining})`;
+
+        } else {
+
+            // Le délai est écoulé :
+            // le bouton devient accessible.
+            clearInterval(countdownInterval);
+
+            dialogOk.disabled = false;
+            dialogOk.textContent = "OK ";
+
+            dialogCountdown.textContent =
+                "Continuer...";
+        }
+
+    }, 1000);
+}
+
+
+/* ---------------------------------------------------------
+   FERMETURE DE LA FENÊTRE
+   --------------------------------------------------------- */
+
+dialogOk.addEventListener("click", () => {
+
+    // Ferme la fenêtre et retire le fond flouté.
+    infoDialog.close();
+
+});
+
+
+/* ---------------------------------------------------------
+   AFFICHAGE AU CHARGEMENT DE LA PAGE
+   --------------------------------------------------------- */
+
+// Attend que le HTML soit analysé avant d'ouvrir la fenêtre.
+if (document.readyState === "loading") {
+
+    document.addEventListener("DOMContentLoaded", showInfoDialog);
+
+} else {
+
+    showInfoDialog();
+
+}
+</script>
 	
 </body>
 </html>
