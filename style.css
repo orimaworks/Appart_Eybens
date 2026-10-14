@@ -392,6 +392,10 @@ nav a:active {
 #dialog-ok:disabled {opacity: 0.45; cursor: not-allowed;}
 #dialog-ok:not(:disabled):hover {background: #105184;}
 @media (max-width: 600px) {
+#info-dialog {
+  position: fixed;
+    top: 70%;
+  }
     .dialog-content {
         padding: 24px 20px;
     }
